@@ -433,11 +433,13 @@ function LandingPro() {
             tus clientes usan desde WhatsApp.
           </p>
 
+          
+
           <div
             style={{
               display: "flex",
               justifyContent: "center",
-              alignItems: "stretch",
+              alignItems: "center",
               gap: 12,
               flexWrap: isMobile ? "nowrap" : "wrap",
               flexDirection: isMobile ? "column" : "row",
@@ -449,6 +451,10 @@ function LandingPro() {
               target="_blank"
               rel="noreferrer"
               style={{
+                display: "block",
+                width: isMobile ? "88%" : "auto",   // 👈 más angosto en cel
+                maxWidth: 420,
+                margin: "0 auto",                   // 👈 centrado
                 padding: "14px 26px",
                 background: "#22c55e",
                 color: "black",
@@ -456,7 +462,6 @@ function LandingPro() {
                 borderRadius: 999,
                 fontWeight: 700,
                 textDecoration: "none",
-                width: isMobile ? "100%" : "auto",
               }}
             >
               🚀 Activar mi mini-app hoy
@@ -467,18 +472,22 @@ function LandingPro() {
               target="_blank"
               rel="noreferrer"
               style={{
+                display: "block",
+                width: isMobile ? "88%" : "auto",   // 👈 igual que el verde
+                maxWidth: 420,
+                margin: "0 auto",
                 padding: "14px 26px",
                 borderRadius: 999,
                 border: "1px solid #4b5563",
                 fontSize: 15,
                 textDecoration: "none",
                 color: "white",
-                width: isMobile ? "100%" : "auto",
               }}
             >
               Ver demo real
             </a>
           </div>
+
 
           {/* Avatar principal */}
           <div className="hero-avatar">
