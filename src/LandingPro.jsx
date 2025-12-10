@@ -665,17 +665,21 @@ useEffect(() => {
                   marginBottom: 16,
                 }}
               >
-                <video
-                  src={DIANA_REAL_VIDEO_URL}
-                  controls
-                  playsInline
-                  style={{
-                    display: "block",
-                    width: "100%",
-                    height: isMobile ? 210 : 260,
-                    objectFit: "cover",
-                  }}
-                />
+             <video
+  src={DIANA_REAL_VIDEO_URL}
+  controls
+  playsInline
+  style={{
+    display: "block",
+    width: "100%",
+    maxWidth: "100%",
+    borderRadius: 16,
+    objectFit: "contain",   // 👈 IMPORTANTE para horizontal
+    aspectRatio: "16 / 9",  // 👈 Mantiene forma correcta
+    background: "black",    // 👈 Evita bordes blancos
+  }}
+/>
+
               </div>
 
               <p
@@ -1323,24 +1327,107 @@ useEffect(() => {
     padding: "0 20px",
   }}
 >
-  {/* Barra superior: textos + badges */}
+   
+
+{/* Barra superior: textos + contador urgente */}
   <div
     style={{
-      marginBottom: 16,
+      marginBottom: 18,
       fontSize: 13,
       color: "#e5e7eb",
+      display: "flex",
+      flexDirection: isMobile ? "column" : "row",
+      justifyContent: "space-between",
+      alignItems: isMobile ? "flex-start" : "center",
+      gap: 12,
     }}
   >
-    <div style={{ marginBottom: 4 }}>
-      Lanzamiento especial · Sólo 7 restaurantes por ciudad
-    </div>
+    {/* Texto de lanzamiento */}
     <div>
-      Último día de promoción · Termina en{" "}
-      <span style={{ fontWeight: 700 }}>
-        {timeLeft.hours}:{timeLeft.minutes}:{timeLeft.seconds}
-      </span>
+      <div style={{ marginBottom: 4 }}>
+        Lanzamiento especial · Sólo 7 restaurantes por ciudad
+      </div>
+      <div style={{ fontSize: 12, opacity: 0.85 }}>
+        Activa hoy tu mini-app y asegura este precio.
+      </div>
+    </div>
+
+    {/* Reloj tipo urgencia */}
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        padding: "8px 12px",
+        borderRadius: 999,
+        background:
+          "radial-gradient(circle at top left, rgba(248,113,113,0.35), rgba(24,24,27,0.95))",
+        border: "1px solid rgba(248,113,113,0.85)",
+        boxShadow: "0 0 24px rgba(248,113,113,0.45)",
+      }}
+    >
+      <div
+        style={{
+          fontSize: 11,
+          textTransform: "uppercase",
+          letterSpacing: 1,
+          color: "#fecaca",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Último día · termina en
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 4,
+          fontFamily:
+            "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+          fontSize: 13,
+          fontWeight: 700,
+        }}
+      >
+        <div
+          style={{
+            padding: "4px 6px",
+            borderRadius: 8,
+            background: "rgba(15,23,42,0.98)",
+            minWidth: 30,
+            textAlign: "center",
+          }}
+        >
+          {timeLeft.hours}
+        </div>
+        <span>:</span>
+        <div
+          style={{
+            padding: "4px 6px",
+            borderRadius: 8,
+            background: "rgba(15,23,42,0.98)",
+            minWidth: 30,
+            textAlign: "center",
+          }}
+        >
+          {timeLeft.minutes}
+        </div>
+        <span>:</span>
+        <div
+          style={{
+            padding: "4px 6px",
+            borderRadius: 8,
+            background: "rgba(15,23,42,0.98)",
+            minWidth: 30,
+            textAlign: "center",
+          }}
+        >
+          {timeLeft.seconds}
+        </div>
+      </div>
     </div>
   </div>
+
 
   {/* Card del plan */}
   <div
