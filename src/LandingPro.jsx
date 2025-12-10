@@ -86,10 +86,24 @@ const TESTIMONIALS = [
 ];
 
 const styles = `
-  @keyframes fadeUp {
+  /* 🔥 Quitar el marco blanco y centrar todo el contenido en móvil */
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    background: #05030b;
+  }
+ 
+
+
+ @keyframes fadeUp {
     from { opacity:0; transform:translateY(20px); }
     to { opacity:1; transform:translateY(0); }
   }
+
+
+
 
   @keyframes float {
     0% { transform: translateY(0px); }
@@ -102,14 +116,15 @@ const styles = `
     100% { background-position: 100px 100px; }
   }
 
-  @keyframes autoScroll {
+    @keyframes autoScroll {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
 
+  /* 👇 Desplazamiento continuo sin corte */
   @keyframes hero-ws-scroll {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-300%); }
+    100% { transform: translateX(-50%); }
   }
 
   @keyframes pulseGlow {
@@ -135,10 +150,10 @@ const styles = `
 
   .testimonial-track {
     display: flex;
-    overflow-x: auto;
     gap: 16px;
+    width: max-content;
     padding-bottom: 6px;
-    scroll-snap-type: x mandatory;
+    animation: autoScroll 26s linear infinite;
   }
 
   .testimonial-track::-webkit-scrollbar {
@@ -148,8 +163,8 @@ const styles = `
   .testimonial-card {
     min-width: 260px;
     max-width: 320px;
-    scroll-snap-align: center;
   }
+
 
   .hero-ws-wrapper {
     position: relative;
@@ -296,17 +311,19 @@ function LandingPro() {
         />
 
         {/* Header sticky minimal */}
-        <header
-          style={{
-            position: "sticky",
-            top: 0,
-            backdropFilter: "blur(14px)",
-            background: "rgba(5,3,12,0.92)",
-            zIndex: 50,
-            borderBottom: "1px solid #1f2937",
-            padding: "12px 20px",
-          }}
-        >
+      <header
+  style={{
+    position: "sticky",
+    top: 0,
+    backdropFilter: "blur(14px)",
+    background: "rgba(5,3,12,0.92)",
+    zIndex: 50,
+    borderBottom: "1px solid #1f2937",
+    padding: isMobile ? "8px 14px" : "12px 20px", // 👈 más compacto en cel
+  }}
+>
+
+
           <div
             style={{
               maxWidth: 1200,
@@ -348,15 +365,16 @@ function LandingPro() {
 
         {/* Franja de beneficios rápidos */}
         <div
-          style={{
-            maxWidth: 900,
-            margin: "0 auto",
-            textAlign: "center",
-            fontSize: 12,
-            padding: "10px 20px 4px",
-            opacity: 0.85,
-          }}
-        >
+  style={{
+    maxWidth: 900,
+    margin: "0 auto",
+    textAlign: "center",
+    fontSize: isMobile ? 11 : 12,
+    padding: isMobile ? "8px 14px 2px" : "10px 20px 4px",
+    opacity: 0.85,
+  }}
+>
+
           ✔ Mini-app lista en 24 horas · ✔ Sin comisiones por pedido · ✔ Soporte
           directo con Diana
         </div>
@@ -1216,52 +1234,58 @@ function LandingPro() {
               marginBottom: 14,
             }}
           >
-            Desliza para ver más testimonios.
-          </p>
+           
 
-          <div className="testimonial-track" style={{ marginBottom: 24 }}>
-            {TESTIMONIALS.map((t, i) => (
-              <div
-                key={i}
-                className="testimonial-card"
-                style={{
-                  background: "rgba(15,23,42,0.95)",
-                  borderRadius: 22,
-                  border: "1px solid rgba(31,41,55,0.9)",
-                  padding: 18,
-                  color: "#e5e7eb",
-                }}
-              >
-                <p
-                  style={{
-                    fontSize: 14,
-                    marginBottom: 10,
-                  }}
-                >
-                  “{t.texto}”
-                </p>
+ Desliza para ver más testimonios.
+          </p>
+          <div style={{ overflow: "hidden", marginBottom: 24 }}>
+            <div className="testimonial-track">
+              {TESTIMONIALS.concat(TESTIMONIALS).map((t, i) => (
                 <div
+                  key={i}
+                  className="testimonial-card"
                   style={{
-                    fontSize: 13,
-                    color: "#9ca3af",
-                    marginBottom: 4,
+                    background: "rgba(15,23,42,0.95)",
+                    borderRadius: 22,
+                    border: "1px solid rgba(31,41,55,0.9)",
+                    padding: 18,
+                    color: "#e5e7eb",
                   }}
                 >
-                  {t.nombre}
+                  <p
+                    style={{
+                      fontSize: 14,
+                      marginBottom: 10,
+                    }}
+                  >
+                    “{t.texto}”
+                  </p>
+                  <div
+                    style={{
+                      fontSize: 13,
+                      color: "#9ca3af",
+                      marginBottom: 4,
+                    }}
+                  >
+                    {t.nombre}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 13,
+                      color: "#4ade80",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {t.resultado}
+                  </div>
                 </div>
-                <div
-                  style={{
-                    fontSize: 13,
-                    color: "#4ade80",
-                    fontWeight: 600,
-                  }}
-                >
-                  {t.resultado}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </section>
+
+                
+
+ </section>
 
        {/* PLAN RESTAURANTE LOCAL */}
 <section
