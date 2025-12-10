@@ -259,7 +259,7 @@ function getTimeLeftToEndOfDay() {
 
 function LandingPro() {
   const [timeLeft, setTimeLeft] = useState(getTimeLeftToEndOfDay);
-  const [avatarMuted, setAvatarMuted] = useState(false); // 👈 empieza SIN mute
+  const [avatarMuted, setAvatarMuted] = useState(true); 
   const [isMobile, setIsMobile] = useState(false);
   const avatarRef = useRef(null);                        // 👈 referencia al video
 
@@ -275,14 +275,12 @@ useEffect(() => {
   useEffect(() => {
     if (avatarRef.current) {
       try {
-        avatarRef.current.muted = avatarMuted;
+        avatarRef.current.muted = true; // 👈 forzar mute
         const playPromise = avatarRef.current.play();
         if (playPromise?.catch) {
           playPromise.catch(() => {});
         }
-      } catch (e) {
-        // algunos navegadores bloquearán esto por política de autoplay
-      }
+      } catch (e) {}
     }
   }, []);
 
