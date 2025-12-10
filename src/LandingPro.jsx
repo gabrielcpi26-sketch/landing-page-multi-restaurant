@@ -1,7 +1,8 @@
 // 🚀 LandingPro.jsx — Versión estable COMPLETA
 // Diana: landing pensada para cerrar ventas sin errores de sintaxis.
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+
 console.log("🔥 ESTE ES LandingPro.jsx (se está ejecutando)");
 
 const LOGO_URL = "/logo.png";
@@ -258,15 +259,33 @@ function getTimeLeftToEndOfDay() {
 
 function LandingPro() {
   const [timeLeft, setTimeLeft] = useState(getTimeLeftToEndOfDay);
-  const [avatarMuted, setAvatarMuted] = useState(true);
+  const [avatarMuted, setAvatarMuted] = useState(false); // 👈 empieza SIN mute
   const [isMobile, setIsMobile] = useState(false);
+  const avatarRef = useRef(null);                        // 👈 referencia al video
+
   const handlePlanWhatsAppClick = () => {
     window.open(whatsapp, "_blank", "noopener,noreferrer");
   };
 
-  useEffect(() => {
+useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Intentar reproducir el avatar con audio al cargar la página
+  useEffect(() => {
+    if (avatarRef.current) {
+      try {
+        avatarRef.current.muted = avatarMuted;
+        const playPromise = avatarRef.current.play();
+        if (playPromise?.catch) {
+          playPromise.catch(() => {});
+        }
+      } catch (e) {
+        // algunos navegadores bloquearán esto por política de autoplay
+      }
+    }
+  }, []);
+
 
   useEffect(() => {
     const checkMobile = () => {
@@ -504,12 +523,14 @@ function LandingPro() {
               tus ventas desde hoy.
             </p>
 
-            <video
+                  <video
+              ref={avatarRef}
               src={AVATAR_URL}
               autoPlay
               muted={avatarMuted}
               playsInline
               loop
+
               controls={false}
               controlsList="nofullscreen nodownload noplaybackrate"
               disablePictureInPicture
