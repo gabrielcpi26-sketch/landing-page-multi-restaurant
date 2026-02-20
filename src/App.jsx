@@ -1,35 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import LandingPro from "./LandingPro";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+function DataDeletion() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+    <div style={{ fontFamily: "Arial", padding: 40, maxWidth: 900, margin: "0 auto" }}>
+      <h1>Solicitud de Eliminación de Datos</h1>
+      <p>
+        Si deseas solicitar la eliminación de tus datos personales, envía un correo a:
       </p>
-    </>
-  )
+      <h2>soporte@gadiapps.com</h2>
+      <p>
+        Incluye tu nombre completo y el número con el que te registraste. Procesaremos tu
+        solicitud en un plazo máximo de 72 horas.
+      </p>
+    </div>
+  );
 }
 
-export default App
+export default function App() {
+  const path = window.location.pathname || "/";
+  if (path === "/data-deletion" || path === "/data-deletion/") return <DataDeletion />;
+  return <LandingPro />;
+}
